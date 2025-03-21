@@ -13,15 +13,14 @@ ApiConnector.current((responseBody) => {
 });
 
 const ratesBoard = new RatesBoard();
-function getStocks() {
+const getStocks = (function() {
   ApiConnector.getStocks((responseBody) => {
     if (responseBody.success) {
-      ratesBoard.clearTable();
-      ratesBoard.fillTable(responseBody.data);
+      this.clearTable();
+      this.fillTable(responseBody.data);
     }
   });
-}
-
+}).bind(ratesBoard);
 getStocks();
 setInterval(() => {
   getStocks();
