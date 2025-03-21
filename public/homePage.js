@@ -32,7 +32,7 @@ moneyManager.addMoneyCallback = function(data) {
   ApiConnector.addMoney(data, (responseBody) => {
     if (responseBody.success) {
       ProfileWidget.showProfile(responseBody.data);
-      this.setMessage(true, "Деньги успешно добавлены.");
+      this.setMessage(true, `Успешно добавлено ${data.amount} ${data.currency}.`);
     } else {
       this.setMessage(false, responseBody.error);
     }
@@ -42,7 +42,7 @@ moneyManager.conversionMoneyCallback = function(data) {
   ApiConnector.convertMoney(data, (responseBody) => {
     if (responseBody.success) {
       ProfileWidget.showProfile(responseBody.data);
-      this.setMessage(true, "Конвертация валюты выполнена успешно.");
+      this.setMessage(true, `Успешно конвертировано ${data.fromAmount} ${data.fromCurrency} в ${data.targetCurrency}.`);
     } else {
       this.setMessage(false, responseBody.error);
     }
@@ -52,7 +52,7 @@ moneyManager.sendMoneyCallback = function(data) {
   ApiConnector.transferMoney(data, (responseBody) => {
     if (responseBody.success) {
       ProfileWidget.showProfile(responseBody.data);
-      this.setMessage(true, "Деньги успешно отправлены.");
+      this.setMessage(true, `Успешно отправлено ${data.amount} ${data.currency} пользователю ${data.to}.`);
     } else {
       this.setMessage(false, responseBody.error);
     }
@@ -73,7 +73,7 @@ favoritesWidget.addUserCallback = function(data) {
       this.clearTable();
       this.fillTable(responseBody.data);
       moneyManager.updateUsersList(responseBody.data);
-      this.setMessage(true, "Пользователь успешно добавлен в избранное.");
+      this.setMessage(true, `Пользователь ${data.name} успешно добавлен в избранное.`);
     } else {
       this.setMessage(false, responseBody.error);
     }
@@ -85,7 +85,7 @@ favoritesWidget.removeUserCallback = function(id) {
       this.clearTable();
       this.fillTable(responseBody.data);
       moneyManager.updateUsersList(responseBody.data);
-      this.setMessage(true, "Пользователь успешно удалён из списка избранных.");
+      this.setMessage(true, `Пользователь с ID №${id} успешно удалён из списка избранных.`);
     } else {
       this.setMessage(false, responseBody.error);
     }
